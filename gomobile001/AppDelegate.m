@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  Artyot001
+//  MAGAZENTO
 //
 //  Created by invoice on 1/11/13.
 //  Copyright (c) 2013 invoice. All rights reserved.
