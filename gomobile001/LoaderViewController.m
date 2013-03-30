@@ -18,7 +18,7 @@
 #import "ZipArchive.h"
 #import "SBJSON.h"
 
-static NSString *USER_TAG          = @"userid";
+static NSString *USER_TAG          = @"user";
 static NSString *API_TAG           = @"api";
 static NSString *API_KEY           = @"apikey";
 static NSString *CRYPT_PASSWORD    = @"magazento.mobile.password";
@@ -30,7 +30,7 @@ static NSString *CRYPT_PASSWORD    = @"magazento.mobile.password";
 @implementation LoaderViewController
 
 @synthesize apiAddress;
-@synthesize userId;
+@synthesize apiUser;
 @synthesize currentNode;
 @synthesize fileData;
 @synthesize fileSize;
@@ -80,7 +80,7 @@ static NSString *CRYPT_PASSWORD    = @"magazento.mobile.password";
 - (void) startProgramm {
     
     [ApplicationData parseXml];
-    [ApplicationData setApiValues:self.apiAddress :self.userId];
+    [ApplicationData setApiValues:self.apiAddress :self.apiUser :self.apiKey];
     
     // LOAD TABBAR
     UIViewController * vcSearch = [[SearchViewController alloc] initWithNibName:@"SearchViewController" bundle:nil];
@@ -123,7 +123,7 @@ static NSString *CRYPT_PASSWORD    = @"magazento.mobile.password";
 {
     
     // GET SETTINGS FROM API
-    NSString *storeinfoURL = [NSString stringWithFormat:@"%@/storeinfo/%@/%@/",self.apiAddress,self.userId,self.apiKey] ;
+    NSString *storeinfoURL = [NSString stringWithFormat:@"%@/storeinfo/%@/%@/",self.apiAddress,self.apiUser,self.apiKey] ;
     NSLog(@"API: URL: %@",storeinfoURL);    
     NSError *error = nil;
     NSString *responseString= [NSString stringWithContentsOfURL:[NSURL URLWithString:storeinfoURL] encoding:NSUTF8StringEncoding error:&error];
@@ -168,7 +168,7 @@ static NSString *CRYPT_PASSWORD    = @"magazento.mobile.password";
 
                 
                 // CATALOG
-                NSString *storecatalogURL = [NSString stringWithFormat:@"%@/storecatalog/%@/%@/",self.apiAddress,self.userId,self.apiKey];
+                NSString *storecatalogURL = [NSString stringWithFormat:@"%@/storecatalog/%@/%@/",self.apiAddress,self.apiUser,self.apiKey];
                 NSURL *fileURL = [NSURL URLWithString:storecatalogURL];
                 NSURLRequest *req = [NSURLRequest requestWithURL:fileURL];
                 [NSURLConnection connectionWithRequest:req delegate:self];
@@ -310,7 +310,7 @@ static NSString *CRYPT_PASSWORD    = @"magazento.mobile.password";
 {
 
     if ([self.currentNode isEqualToString:USER_TAG] ) {
-        self.userId = string;
+        self.apiUser = string;
     }
     if ([self.currentNode isEqualToString:API_TAG] ) {
         self.apiAddress = string;

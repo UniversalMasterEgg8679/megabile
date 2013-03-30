@@ -22,7 +22,7 @@
 
 @property (strong, nonatomic) NSMutableString *currentNode;
 @property (strong, nonatomic) NSString *apiAddress;
-@property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSString *apiUser;
 @property (strong, nonatomic) NSString *apiKey;
 @property (nonatomic) int              apiUpdateDate;
 

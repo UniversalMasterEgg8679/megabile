@@ -124,9 +124,10 @@ static ApplicationDataInternal *sharedApplicationData = nil;
 //}
 
 #pragma mark - API 
-+(void) setApiValues:(NSString*) url:(NSString*) userId {
++(void) setApiValues:(NSString*) url:(NSString*) user:(NSString*) apiKey {
     [[self getInternal].api setObject:url forKey:@"url"];
-    [[self getInternal].api setObject:userId forKey:@"userId"];
+    [[self getInternal].api setObject:user forKey:@"user"];
+    [[self getInternal].api setObject:apiKey forKey:@"apiKey"];    
 }
 
 +(NSString*) getApi:(NSString*) id{

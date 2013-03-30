@@ -21,7 +21,7 @@
 
 
 #pragma mark - API
-+(void) setApiValues:(NSString*) url:(NSString*) userId;
++(void) setApiValues:(NSString*) url:(NSString*) user:(NSString*) apiKey;
 +(NSString*) getApi:(NSString*) id;
     
 #pragma mark - TRANSLATE

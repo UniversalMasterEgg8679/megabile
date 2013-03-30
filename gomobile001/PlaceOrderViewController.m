@@ -114,6 +114,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     [self.buttonPlaceOrder setTitle:[ApplicationData getTranslation:@"Send Order"] forState:UIControlStateNormal];
     [self.buttonPlaceOrder setTitle:[ApplicationData getTranslation:@"Send Order"] forState:UIControlStateHighlighted];
 
+    [self.buttonPlaceOrder setEnabled:YES];
     
     self.orderFirstName.delegate = self;
     self.orderLastName.delegate = self;
@@ -174,7 +175,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     
     if (approved) {
-//        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
+
 //        NSLog(@"buttonPlaceOrder");
         
         NSString *txtTo      = [ApplicationData getCompanyInfo:@"email"];
@@ -216,14 +217,16 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         
         
         // SEND REQUEST TO API
-//         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
-        NSString *apiURL = [NSString stringWithFormat:@"%@/orderemail/%@",[ApplicationData getApi:@"url"],[ApplicationData getApi:@"userId"]];
-        NSLog(apiURL);
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
+        [self.buttonPlaceOrder setEnabled:NO];
+        
+        NSString *apiURL = [NSString stringWithFormat:@"%@/orderemail/%@/%@/",[ApplicationData getApi:@"url"],[ApplicationData getApi:@"user"],[ApplicationData getApi:@"apiKey"]];
+        NSLog(@"API: URL %@",apiURL);
         NSURL *url = [NSURL URLWithString:apiURL];
         
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                                cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:10.0];
+                                                           timeoutInterval:3.0];
         [request setHTTPMethod:@"POST"];
         NSData *data=[body dataUsingEncoding:NSUTF8StringEncoding];
         [request setHTTPBody:data];
@@ -264,7 +267,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex;{
     if (buttonIndex == 0)
     {
-//        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
         
         CartViewController *uvcCart = [[CartViewController alloc] initWithNibName:@"CartViewController" bundle:nil];
         [self.navigationController pushViewController: uvcCart animated:YES];
